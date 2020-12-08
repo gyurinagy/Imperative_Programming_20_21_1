@@ -26,7 +26,7 @@ int main(){
         printf("%d%c",en->_arr[i]._n,en->_arr[i]._c);
     printf(" -> "); printf("%s\n",decode(en));
 
-    free(strPointer);
+    
     free(en->_arr);
     free(en);
     

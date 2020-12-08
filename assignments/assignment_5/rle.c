@@ -7,9 +7,9 @@ struct Encoded* encode(char *str){
     struct Encoded *tmp = malloc(sizeof(struct Encoded));
     if(tmp==NULL) exit(EXIT_FAILURE);
 
-    int letters[255] = {0}; // ezek a betuk ascii ban
-    int wordcounter[255] = {0}; // ez hogy adott betubol hany db van
-    int lettercounter=0; // ez hogy hany db betu van
+    int letters[255] = {0}; // the letters in ascii
+    int wordcounter[255] = {0}; // how many are there from the given characters
+    int lettercounter=0; // the length of the string
     for(unsigned i = 0;i<strlen(str);++i){
         int counter=1;
         while (i < strlen(str) - 1 && str[i] == str[i + 1]) {
@@ -31,29 +31,22 @@ struct Encoded* encode(char *str){
         pairs[i]._n = wordcounter[i];
     }
     tmp->_arr = pairs;
-
+    
     return tmp;
 }
 
 
 char *decode(struct Encoded* enc){
-    char str[255]={0};
+    char* str = calloc(enc->_length,sizeof(char));
+
     int k = 0;
-    
-    for(unsigned i = 0;i<enc->_length;++i){
-        for(unsigned j = 0;j<enc->_arr[i]._n;++j){
+    for (unsigned i = 0;i<enc->_length;++i) {
+        for (unsigned j = 0;j<enc->_arr[i]._n;++j) {
             str[k]=enc->_arr[i]._c;
-            
             k++;
         }
     }
-
     str[k]='\0';
     
-    char* str2 = calloc(k, sizeof(char));
-    if(str2==NULL) exit(EXIT_FAILURE);
-    
-    str2 = str;
-    
-    return str2;
+    return str;
 }
